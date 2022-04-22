@@ -1,0 +1,17 @@
+<div class="main">
+<%= form_with( model: @bug ) do |f| %>
+  <%= f.label :descricao %>
+  <%= f.text_field :descricao %>
+  <%= f.label :comportamento%>
+  <%= f.text_field :comportamento %>
+  <%= f.label :causa %>
+  <%= f.text_field :causa %>
+  <%= f.label :prioridade %>
+  <%= f.text_field :prioridade %>
+  <%= f.label :categoria %>
+  <%= f.text_field :categoria %>
+  <%= f.label :evidencias %>
+  <%= f.text_field :evidencias %>
+  <%= f.submit %>
+<% end %>
+</div>

@@ -1,0 +1,28 @@
+
+<table>
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Comportamento</th>
+      <th>Causa</th>
+      <th>Prioridade</th>
+      <th>Categoria</th>
+      <th>Evidências</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bugs.each do |bug| %>
+      <tr>
+        <td><%= bug.descricao %></td>
+        <td><%= bug.comportamento %></td>
+        <td><%= bug.causa %></td>
+        <td><%= bug.prioridade %></td>
+        <td><%= bug.categoria %></td>
+        <td><%= bug.evidencias %></td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
