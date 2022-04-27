@@ -1,16 +1,21 @@
 class ParserController < ApplicationController
-require "csv"
-
   def index
   end
 
-  def parse
-    movies = []
-    filepath = params["csv"]
+  def import
+    erros = []
+    file = params["csv"]
+    File.open(file).each do |row|
+      begin
+        row = row.split(",")
 
-    CSV.foreach(filepath) do |row|
-      movie = row[1].to_o
+        descricao = row[0].strip rescue row[0]
+        ano = row[1].strip rescue row[1]
+
+        Bug.create(descricao: descricao, ano: ano)
+      rescue => exception
+        erros << err.message
+      end
     end
-    movie
   end
 end
