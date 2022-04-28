@@ -9,13 +9,14 @@ class ParserController < ApplicationController
       begin
         row = row.split(",")
 
-        descricao = row[0].strip rescue row[0]
-        ano = row[1].strip rescue row[1]
+        descricao = row[0]&.strip
+        ano = row[1]&.strip
 
-        Bug.create(descricao: descricao, ano: ano)
+        Bug.create(descricao: descricao, comportamento: ano)
       rescue => exception
-        erros << err.message
+        erros << exception.message
       end
     end
+    render json: erros
   end
 end
