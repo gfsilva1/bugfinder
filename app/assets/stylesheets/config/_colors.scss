@@ -8,3 +8,242 @@ $orange: #E67E22;
 $green: #1EDD88;
 $gray: #0E0000;
 $light-gray: #F4F4F4;
+
+$spacing-none: 0;
+$spacing-auto: auto;
+$spacing-1: 4px;
+$spacing-2: 8px;
+$spacing-3: 16px;
+$spacing-4: 24px;
+$spacing-5: 32px;
+$spacing-6: 40px;
+$spacing-7: 48px;
+$spacing-8: 56px;
+$spacing-9: 64px;
+$spacing-10: 72px;
+$spacing-11: 80px;
+
+$spacing-inset-1: $spacing-2;
+$spacing-inset-2: $spacing-3;
+$spacing-inset-3: $spacing-4;
+$spacing-inset-4: $spacing-5;
+$spacing-inset-5: $spacing-6;
+
+$spacing-squish-1: ($spacing-1, $spacing-2);
+$spacing-squish-2: ($spacing-2, $spacing-3);
+$spacing-squish-3: ($spacing-3, $spacing-4);
+$spacing-squish-4: ($spacing-4, $spacing-5);
+$spacing-squish-5: ($spacing-5, $spacing-6);
+
+$spacing-directions: (t: 'top',
+  b: 'bottom',
+  l: 'left',
+  r: 'right',
+  x: ('left', 'right'),
+  y: ('bottom', 'top'));
+
+$spacing-sizes: ($spacing-1,
+  $spacing-2,
+  $spacing-3,
+  $spacing-4,
+  $spacing-5,
+  $spacing-6,
+  $spacing-7,
+  $spacing-8,
+  $spacing-9,
+  $spacing-10,
+  $spacing-11);
+
+$spacing-insets: ($spacing-inset-1,
+  $spacing-inset-2,
+  $spacing-inset-3,
+  $spacing-inset-4,
+  $spacing-inset-5);
+
+$spacing-squishes: ($spacing-squish-1,
+  $spacing-squish-2,
+  $spacing-squish-3,
+  $spacing-squish-4,
+  $spacing-squish-5);
+
+@mixin set-padding($top, $right, $bottom, $left) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left;
+}
+
+@mixin set-margin($top, $right, $bottom, $left) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+}
+
+@each $spacing in $spacing-sizes {
+  $i: index($spacing-sizes, $spacing);
+
+  @each $class,
+  $directions in $spacing-directions {
+    @each $direction in $directions {
+      .p#{$class}-#{$i} {
+
+
+        padding-#{$direction}: $spacing;
+      }
+
+      .m#{$class}-#{$i} {
+
+
+        margin-#{$direction}: $spacing;
+      }
+
+      .-p#{$class}-#{$i} {
+
+
+        padding-#{$direction}: -$spacing;
+      }
+
+      .-m#{$class}-#{$i} {
+
+
+        margin-#{$direction}: -$spacing;
+      }
+    }
+  }
+
+  @each $class,
+  $direction in (x: 'row', y: 'column') {
+    .g#{$class}-#{$i} {
+
+
+      #{$direction}-gap: $spacing;
+    }
+  }
+
+  .p-#{$i} {
+
+
+    padding: $spacing;
+  }
+
+  .m-#{$i} {
+
+
+    margin: $spacing;
+  }
+
+  .-p-#{$i} {
+
+
+    padding: -$spacing;
+  }
+
+  .-m-#{$i} {
+
+
+    margin: -$spacing;
+  }
+
+  .g-#{$i} {
+
+    gap: $spacing;
+  }
+}
+
+@each $class,
+$directions in $spacing-directions {
+  @each $direction in $directions {
+    .m#{$class}-auto {
+
+      margin-#{$direction}: $spacing-auto;
+    }
+
+    .m#{$class}-none {
+
+
+      margin-#{$direction}: $spacing-none;
+    }
+
+    .p#{$class}-none {
+
+
+      padding-#{$direction}: $spacing-none;
+    }
+  }
+}
+
+.m-auto {
+  margin: $spacing-auto !important;
+}
+
+.m-none {
+  margin: $spacing-none !important;
+}
+
+.p-none {
+  padding: $spacing-none !important;
+}
+
+.g-none {
+
+  gap: $spacing-none !important;
+}
+
+.gx-none {
+
+
+  row-gap: $spacing-none !important;
+}
+
+.gy-none {
+
+
+  column-gap: $spacing-none !important;
+}
+
+.w-300 {
+  min-width: 300px;
+}
+
+@each $spacing-inset in $spacing-insets {
+  $i: index($spacing-insets, $spacing-inset);
+
+  .spacing-inset-padding-#{$i} {
+    @include set-padding($spacing-inset, $spacing-inset, $spacing-inset, $spacing-inset);
+  }
+
+  .spacing-inset-margin-#{$i} {
+    @include set-margin($spacing-inset, $spacing-inset, $spacing-inset, $spacing-inset);
+  }
+}
+
+@each $spacing-squish in $spacing-squishes {
+  $i: index($spacing-squishes, $spacing-squish);
+  $top-bottom: nth($spacing-squish, 1);
+  $right-left: nth($spacing-squish, 2);
+
+  .spacing-squish-padding-#{$i} {
+    @include set-padding($top-bottom, $right-left, $top-bottom, $right-left);
+  }
+
+  .spacing-squish-margin-#{$i} {
+    @include set-margin($top-bottom, $right-left, $top-bottom, $right-left);
+  }
+}
+
+@mixin spacing-squish-padding($index) {
+  $spacing-squish: nth($spacing-squishes, $index);
+  $top-bottom: nth($spacing-squish, 1);
+  $right-left: nth($spacing-squish, 2);
+
+  @include set-padding($top-bottom, $right-left, $top-bottom, $right-left);
+}
+
+@mixin spacing-squish-margin($index) {
+  $spacing-squish: nth($spacing-squishes, $index);
+  $top-bottom: nth($spacing-squish, 1);
+  $right-left: nth($spacing-squish, 2);
+
+  @include set-margin($top-bottom, $right-left, $top-bottom, $right-left);
+}
