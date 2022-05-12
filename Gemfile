@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+gem 'cloudinary', '~> 1.16.0'
 
 ruby '2.7.2'
 gem 'open-uri'
